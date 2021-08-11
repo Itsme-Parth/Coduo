@@ -43,7 +43,7 @@ function App() {
 
   const handleSubmit = async () => {
     const payload = {
-      language: "cpp",
+      language,
       code,
     };
 
