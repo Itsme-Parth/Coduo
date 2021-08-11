@@ -16,8 +16,8 @@ exports.createfile = async (format, code) => {
   return filepath;
 };
 
-// For executing the program file and returning Input
-exports.executeprog = async (filepath) => {
+// For executing the c++ program file and returning Input
+exports.executecpp = async (filepath) => {
   //D:\\GitHub\\coduo\\backend\\temp\\ba9d4789-1539-491a-8110-acb4f52b4016.cpp
   try {
     const filename = path.basename(filepath).split(".")[0];
@@ -31,6 +31,22 @@ exports.executeprog = async (filepath) => {
           resolve(stdout);
         }
       );
+    });
+  } catch (err) {
+    console.log(`Error here: ${err}`);
+    return;
+  }
+};
+
+// For executing python codes
+exports.executepy = async (filepath) => {
+  try {
+    return new Promise((resolve, reject) => {
+      exec(`python ${filepath}`, (error, stdout, stderr) => {
+        error && reject({ error, stderr }); // if (error) reject(error);
+        stderr && reject(stderr); // if (stderr) reject(stderr);
+        resolve(stdout);
+      });
     });
   } catch (err) {
     console.log(`Error here: ${err}`);
