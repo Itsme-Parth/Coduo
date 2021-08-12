@@ -51,14 +51,17 @@ function App() {
       setStatus("");
       setOutput("");
       setJobDetails(null);
-      const { data } = await axios.post("http://localhost:8888/run", payload);
+      const { data } = await axios.post(
+        "https://coduo.herokuapp.com/run",
+        payload
+      );
       console.log(data);
       setJobId(data.jobId);
       let pollInterval;
 
       pollInterval = setInterval(async () => {
         const { data: dataRes } = await axios.get(
-          "http://localhost:8888/status",
+          "https://coduo.herokuapp.com/status",
           { params: { id: data.jobId } }
         );
 
