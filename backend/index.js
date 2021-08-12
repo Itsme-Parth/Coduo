@@ -77,9 +77,9 @@ app.post("/run", async (req, res) => {
     console.log(job);
     //res.status(200).json({ job });
   } catch (err) {
-    job.completedAt = new Date();
-    job.status = "error";
-    job.output = JSON.stringify(err);
+    job["completedAt"] = new Date();
+    job["status"] = "error";
+    job["output"] = JSON.stringify(err);
     await job.save();
 
     console.log(job);
