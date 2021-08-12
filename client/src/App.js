@@ -10,7 +10,6 @@ function App() {
   const [status, setStatus] = useState("");
   const [jobId, setJobId] = useState("");
   const [jobDetails, setJobDetails] = useState(null);
-
   useEffect(() => {
     const DefaultLang = localStorage.getItem("default-language") || "cpp";
     setLanguage(DefaultLang);
