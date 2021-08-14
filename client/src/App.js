@@ -3,6 +3,7 @@ import "./App.css";
 import React, { useState, useEffect } from "react";
 import stubs from "./stubs";
 import moment from "moment";
+import AceEditor from "./AceEditor";
 function App() {
   const [code, setCode] = useState(""); //code is the variable that contains the text of the textarea and setCode sets the text to the textarea
   const [language, setLanguage] = useState("cpp");
@@ -110,9 +111,12 @@ function App() {
           }}
         >
           <option value="cpp">C++</option>
+          <option value="py">C</option>
           <option value="py">Python</option>
+          <option value="py">Java</option>
         </select>
       </div>
+      {/* <AceEditor /> */}
       <br />
       <div>
         <button onClick={setDefaultLanguage}>Set Default</button>
