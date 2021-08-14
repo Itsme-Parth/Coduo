@@ -47,7 +47,7 @@ app.get("/status", async (req, res) => {
 app.post("/run", async (req, res) => {
   const { language = `cpp`, code } = req.body;
   if (code === undefined) {
-    return res.status(400).json({ error: "no code received" });
+    return res.status(400).json({ success: false, error: "no code received" });
   }
 
   let job;
@@ -67,7 +67,9 @@ app.post("/run", async (req, res) => {
 
     job.startedAt = new Date();
     if (language === `cpp`) output = await helper.executecpp(filepath);
-    else output = await helper.executepy(filepath);
+    else if (language === `py`) output = await helper.executepy(filepath);
+    else if (language === `c`) output = await helper.executec(filepath);
+    else output = await helper.executejava(filepath);
 
     job.completedAt = new Date();
     job.status = "success";
@@ -77,6 +79,7 @@ app.post("/run", async (req, res) => {
     console.log(job);
     //res.status(200).json({ job });
   } catch (err) {
+    console.log(err);
     job["completedAt"] = new Date();
     job["status"] = "error";
     job["output"] = JSON.stringify(err);
