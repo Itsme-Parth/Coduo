@@ -50,11 +50,11 @@ app.post("/run", async (req, res) => {
     return res.status(400).json({ success: false, error: "no code received" });
   }
 
-  let job;
+  let job, filepath;
 
   try {
     //Generating a file of specified type and content from request
-    const filepath = await helper.createfile(language, code);
+    filepath = await helper.createfile(language, code);
 
     job = await new Job({ language, filepath }).save();
     const jobId = job._id;
@@ -77,13 +77,15 @@ app.post("/run", async (req, res) => {
 
     await job.save();
     console.log(job);
+    helper.deleteFiles(filepath);
     //res.status(200).json({ job });
   } catch (err) {
     console.log(err);
-    job["completedAt"] = new Date();
-    job["status"] = "error";
-    job["output"] = JSON.stringify(err);
+    job.completedAt = new Date();
+    job.status = "error";
+    job.output = JSON.stringify(err);
     await job.save();
+    helper.deleteFiles(filepath);
 
     console.log(job);
     //res.status(500).json({ err });
