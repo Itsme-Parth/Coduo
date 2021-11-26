@@ -11,4 +11,20 @@ int main() {
 
 stubs.py = `print("Hello world!")`;
 
+stubs.java = `public class Main {
+public static void main(String args[]) {
+System.out.print("Hello World");
+} 
+
+}`
+
+stubs.c = `#include <stdio.h>
+
+int main()
+{
+    printf("Hello World");
+
+    return 0;
+}`
+
 export default stubs;
