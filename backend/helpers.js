@@ -110,3 +110,38 @@ exports.executejava = async (filepath) => {
     return;
   }
 };
+
+exports.deleteFiles = async (filepath) => {
+  try {
+    const filename = filepath.split(".")[0];
+    await fs.stat(`${filename}.cpp`, async (err, stats) => {
+      if (err == null) fs.unlinkSync(`${filename}.cpp`);
+    });
+    // if(fs.existsSync(`${filename}.exe`))  fs.unlinkSync(`${filename}.exe`);
+    await fs.stat(`${filename}.exe`, async (err, stats) => {
+      if (err == null) fs.unlinkSync(`${filename}.exe`);
+    });
+    // if(fs.existsSync(`${filename}.java`))  fs.unlinkSync(`${filename}.java`);
+    await fs.stat(`${filename}.java`, async (err, stats) => {
+      if (err == null) fs.unlinkSync(`${filename}.java`);
+    });
+    // if(fs.existsSync(`${filename}.class`))  fs.unlinkSync(`${filename}.class`);
+    await fs.stat(`${filename}.class`, async (err, stats) => {
+      if (err == null) fs.unlinkSync(`${filename}.class`);
+    });
+    // if(fs.existsSync(`${filename}.c`))  fs.unlinkSync(`${filename}.c`);
+    await fs.stat(`${filename}.c`, async (err, stats) => {
+      if (err == null) fs.unlinkSync(`${filename}.c`);
+    });
+    // if(fs.existsSync(`${filename}.out`))  fs.unlinkSync(`${filename}.out`);
+    await fs.stat(`${filename}.out`, async (err, stats) => {
+      if (err == null) fs.unlinkSync(`${filename}.out`);
+    });
+    // if(fs.existsSync(`${filename}.py`))  fs.unlinkSync(`${filename}.py`);
+    await fs.stat(`${filename}.py`, async (err, stats) => {
+      if (err == null) fs.unlinkSync(`${filename}.py`);
+    });
+  } catch (err) {
+    console.log(`See Error Here: ${err}`);
+  }
+};

@@ -53,7 +53,7 @@ function App() {
       setOutput("");
       setJobDetails(null);
       const { data } = await axios.post(
-        "https://coduo.herokuapp.com/run",
+        "http://localhost:8888/run",
         payload
       );
       console.log(data);
@@ -62,7 +62,7 @@ function App() {
 
       pollInterval = setInterval(async () => {
         const { data: dataRes } = await axios.get(
-          "https://coduo.herokuapp.com/status",
+          "http://localhost:8888/status",
           { params: { id: data.jobId } }
         );
 
@@ -96,9 +96,9 @@ function App() {
   };
   return (
     <div className="App">
-      <h1>Online Code compiler</h1>
+      <h1 style = {{padding: 10}}>Online Code compiler</h1>
       <div>
-        <label>Language: </label>
+        <label style = {{padding: 10}}>Language: </label>
         <select
           value={language}
           onChange={(e) => {
@@ -111,25 +111,26 @@ function App() {
           }}
         >
           <option value="cpp">C++</option>
-          <option value="py">C</option>
+          <option value="c">C</option>
           <option value="py">Python</option>
-          <option value="py">Java</option>
+          <option value="java">Java</option>
         </select>
       </div>
-      {/* <AceEditor /> */}
       <br />
       <div>
         <button onClick={setDefaultLanguage}>Set Default</button>
       </div>
       <br />
-      <textarea
+      <AceEditor language = {language} code = {code} setCode={setCode} /> {/*1. sending lNGUAGE and default stubs. 2. receiving language and code to submit*/}
+      
+      {/* <textarea
         rows="20"
         cols="70"
         value={code}
         onChange={(e) => {
           setCode(e.target.value);
         }}
-      ></textarea>
+      ></textarea> */}
       <br />
       <button onClick={handleSubmit}>Submit</button>
       <p>{status}</p>
